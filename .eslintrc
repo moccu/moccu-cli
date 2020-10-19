@@ -1,0 +1,23 @@
+{
+	"env": {
+		"node": true,
+		"es6": true,
+		"jest/globals": true
+	},
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"extends": [
+		"@moccu/eslint-config",
+		"plugin:jest/recommended"
+	],
+	"plugins": [
+		"jest"
+	],
+	"rules": {
+		"no-control-regex": "off",
+		"no-process-exit": "off",
+		"one-var": ["error", "consecutive"]
+	},
+	"parser": "babel-eslint"
+}
