@@ -1,9 +1,6 @@
 moccu-cli
 ==============
 
-[![Coverage Status](https://coveralls.io/repos/github/evanshortiss/lintspaces-cli/badge.svg?branch=master)](https://coveralls.io/github/moccu/moccu-cli?branch=master)
-[![npm version](https://badge.fury.io/js/lintspaces-cli.svg)](https://www.npmjs.com/package/@moccu/moccu-cli)
-
 
 CLI to run commands for docker
 
