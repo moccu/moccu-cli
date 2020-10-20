@@ -4,10 +4,55 @@ moccu-cli
 
 CLI to run commands for docker
 
-## Install
+## Installation and Usage
+
+You can install the moccu-cli using npm:
 ```
 $ npm install -g moccu-cli
 ```
+You should then set up a configuration file:
+```
+{
+	"deployment": {
+		"common": {
+			"client": "clientname",
+			"project": "projectname",
+			"compose": {
+				"nodeCommand": "\"node server.js\""
+			}
+		},
+		"instances": {
+			"localhost": {
+				"host": "localhost",
+				"stage": "testing",
+				"compose": {
+					"envFile": "localhost.env"
+				}
+			},
+			"testing": {
+				"server": "testing",
+				"host": "testing.moccu.net",
+				"stage": "testing",
+				"compose": {
+					"envFile": "testing.env"
+				}
+			},
+			"live": {
+				"server": "live",
+				"host": "live.moccu.net",
+				"stage": "live",
+				"compose": {
+					"envFile": "live.env"
+				}
+			}
+		}
+	}
+}
+```
+All key-value-pairs inside `compose` would be converted to uppcased snakecase-string and will be used as environment variable for docker-compose.
+Example:
+- `nodeCommand` => `COMPOSE_NODE_COMMAND`
+- `envFile` => `COMPOSE_ENV_FILE`
 
 
 ## Alias
@@ -17,7 +62,6 @@ moccu
 
 
 ## Help Output
-
 ```
 $ moccu-cli ---help
 Usage: moccu-cli <command> [options]
