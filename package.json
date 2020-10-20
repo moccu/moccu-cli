@@ -1,6 +1,6 @@
 {
   "name": "@moccu/moccu-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The Moccu-CLI to release, deploy and do other fancy stuff with Docker Context",
   "main": "index.js",
   "scripts": {
