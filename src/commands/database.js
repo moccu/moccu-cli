@@ -28,7 +28,7 @@ function selectDump(dockerProjectName, onSuccess) {
 
 		spinner.stop();
 		console.log('Available dumps:');
-		console.log(stdout);
+
 		const
 			{filename} = await inquirer.prompt({
 				type: 'list',
