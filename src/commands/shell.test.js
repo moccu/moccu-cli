@@ -7,8 +7,6 @@ import {runShell} from './shell';
 import {getContainerId} from '../utils';
 
 
-jest.mock('../configuration');
-
 describe('The runShell command', () => {
 	let
 		restore = null

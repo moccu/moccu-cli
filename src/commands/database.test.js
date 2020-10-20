@@ -1,4 +1,3 @@
-jest.mock('../configuration');
 jest.mock('../utils');
 
 import dayjs from 'dayjs';

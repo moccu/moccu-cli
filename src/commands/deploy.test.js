@@ -12,8 +12,6 @@ import {deploy} from './deploy';
 import {dockerCompose, getDeployedTag, getDockerImageName, getLatestTag} from '../utils';
 
 
-jest.mock('../configuration');
-
 const flushPromises = () => new Promise(setImmediate);
 
 describe('The deploy command', () => {

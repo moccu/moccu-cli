@@ -1,3 +1,5 @@
+jest.unmock('./configuration');
+
 import fs from 'fs';
 import mock from 'mock-fs';
 

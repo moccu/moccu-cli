@@ -8,8 +8,6 @@ import {release, __RewireAPI__ as releaseCommand} from './release';
 import {getLatestTag, getNextTag, pushTag} from '../utils';
 
 
-jest.mock('../configuration');
-
 describe('The release command', () => {
 	it('should push new tag on master', async () => {
 		const

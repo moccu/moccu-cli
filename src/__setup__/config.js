@@ -1,8 +1,13 @@
-global.config = {
-	client: 'client',
-	project: 'project',
-	nodeCommand: 'nodeCommand',
-	host: 'foo-host',
-	stage: 'foo-stage',
-	envFile: 'foo-envFile'
-};
+jest.mock('../configuration');
+
+import merge from 'deepmerge';
+
+import {configuration} from '../configuration';
+
+
+const
+	config = configuration()
+;
+
+
+global.config = merge(config.deployment.common, config.deployment.instances.foo);

@@ -259,7 +259,7 @@ describe('The utils', () => {
 			dockerCompose('up -d', jest.fn(), 'bar');
 
 			expect(execMock).toHaveBeenCalledWith(
-				'DOCKER_HOST=ssh://foo-host COMPOSE_CLIENT=client COMPOSE_FILE=root/deployment/docker-compose.yml COMPOSE_ENV_FILE=foo-envFile COMPOSE_NODE_COMMAND=nodeCommand COMPOSE_PROJECT=project COMPOSE_PROJECT_NAME=clientprojectfoo-stage COMPOSE_STAGE=foo-stage COMPOSE_TAG=bar docker-compose up -d',
+				'DOCKER_HOST=ssh://foo-host COMPOSE_CLIENT=client COMPOSE_FILE=root/deployment/docker-compose.yml COMPOSE_PROJECT=project COMPOSE_PROJECT_NAME=clientprojectfoo-stage COMPOSE_STAGE=foo-stage COMPOSE_TAG=bar COMPOSE_NODE_COMMAND=nodeCommand COMPOSE_ENV_FILE=foo-envFile docker-compose up -d',
 				{silent: true},
 				expect.any(Function)
 			);
@@ -282,7 +282,7 @@ describe('The utils', () => {
 
 			expect(execMock).toHaveBeenNthCalledWith(
 				2,
-				'DOCKER_HOST=ssh://foo-host COMPOSE_CLIENT=client COMPOSE_FILE=root/deployment/docker-compose.yml COMPOSE_ENV_FILE=foo-envFile COMPOSE_NODE_COMMAND=nodeCommand COMPOSE_PROJECT=project COMPOSE_PROJECT_NAME=clientprojectfoo-stage COMPOSE_STAGE=foo-stage COMPOSE_TAG=0.0.1 docker-compose up -d',
+				'DOCKER_HOST=ssh://foo-host COMPOSE_CLIENT=client COMPOSE_FILE=root/deployment/docker-compose.yml COMPOSE_PROJECT=project COMPOSE_PROJECT_NAME=clientprojectfoo-stage COMPOSE_STAGE=foo-stage COMPOSE_TAG=0.0.1 COMPOSE_NODE_COMMAND=nodeCommand COMPOSE_ENV_FILE=foo-envFile docker-compose up -d',
 				{silent: true},
 				expect.any(Function)
 			);
