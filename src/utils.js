@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import {snakeCase} from 'change-case';
 import ora from 'ora';
 import path from 'path';
 import simpleGit from 'simple-git';
@@ -153,7 +154,7 @@ export function getContainerId(service, onSuccess) {
 
 export function dockerCompose(command, callback, tag = null) {
 	const
-		{client, envFile, host, nodeCommand, project, stage} = global.config,
+		{client, compose, host, project, stage} = global.config,
 		cwd = process.cwd(),
 		composeFile = path.join(cwd, 'deployment', 'docker-compose.yml'),
 		onHandleTag = (releaseTag) => {
@@ -162,16 +163,21 @@ export function dockerCompose(command, callback, tag = null) {
 					{name: 'DOCKER_HOST', value: `ssh://${host}`},
 					{name: 'COMPOSE_CLIENT', value: client},
 					{name: 'COMPOSE_FILE', value: composeFile},
-					{name: 'COMPOSE_ENV_FILE', value: envFile},
-					{name: 'COMPOSE_NODE_COMMAND', value: nodeCommand},
 					{name: 'COMPOSE_PROJECT', value: project},
 					{name: 'COMPOSE_PROJECT_NAME', value: getDockerProjectName()},
 					{name: 'COMPOSE_STAGE', value: stage},
 					{name: 'COMPOSE_TAG', value: releaseTag}
-				].map(({name, value}) => `${name}=${value}`).join(' ')
+				]
 			;
 
-			shelljs.exec(`${envVars} docker-compose ${command}`, {silent: true}, callback);
+			Object.keys(compose).forEach((key) => {
+				envVars.push({
+					name: `COMPOSE_${snakeCase(key).toUpperCase()}`,
+					value: compose[key]
+				});
+			});
+
+			shelljs.exec(`${envVars.map(({name, value}) => `${name}=${value}`).join(' ')} docker-compose ${command}`, {silent: true}, callback);
 		}
 	;
 

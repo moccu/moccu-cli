@@ -19,7 +19,9 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
+    "change-case": "^4.1.1",
     "dayjs": "^1.8.29",
+    "deepmerge": "^4.2.2",
     "esm": "^3.2.25",
     "inquirer": "^7.3.0",
     "js-yaml": "^3.14.0",

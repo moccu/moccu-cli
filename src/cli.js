@@ -1,3 +1,4 @@
+import merge from 'deepmerge';
 import yargs from 'yargs';
 
 import {deploy, migrateDb, downloadDb, dumpDb, restoreDb, release, runShell, shutdown} from './commands';
@@ -60,7 +61,7 @@ export function cli() {
 
 	if (args.instance) {
 		global.instance = args.instance;
-		global.config = {...config.deployment.common, ...config.deployment.instances[args.instance]};
+		global.config = merge(config.deployment.common, config.deployment.instances[args.instance]);
 	}
 
 	switch (cmd) {
