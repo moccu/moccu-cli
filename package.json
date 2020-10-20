@@ -12,7 +12,7 @@
     "moccu"
   ],
   "author": "Moccu GmbH & Co. KG",
-  "license": "Moccu License",
+  "license": "BSD-3-Clause",
   "bin": {
     "moccu-cli": "./index.js",
     "moccu": "./index.js"
