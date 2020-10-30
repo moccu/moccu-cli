@@ -164,7 +164,7 @@ describe('The utils', () => {
 		});
 
 		it('should return next tag on feature-branch', () => {
-			expect(getNextTag('001')).toBe('002');
+			expect(getNextTag('develop.001')).toBe('develop.002');
 		});
 	});
 

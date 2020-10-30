@@ -43,10 +43,15 @@ export async function getLatestTag(currentBranch) {
 
 	currentBranch = currentBranch || current;
 
-	let re;
+	let
+		latestTag,
+		re
+	;
 
 	if (['main', 'master'].includes(currentBranch)) {
 		re = new RegExp(/\d+\.\d+\.\d+/, 'g');
+		latestTag = (tagData.match(re) || []).pop();
+		latestTag = latestTag || '0.0.0';
 	} else {
 		const
 			regex = new RegExp(/([\W_]+)/, 'g'),
@@ -54,17 +59,11 @@ export async function getLatestTag(currentBranch) {
 		;
 
 		re = new RegExp(`${cleanedBranchName}\\.\\d+`, 'g');
+		latestTag = (tagData.match(re) || []).pop();
+		latestTag = latestTag || `${cleanedBranchName}.000`;
 	}
 
-	const
-		latestTag = tagData.match(re)?.pop()
-	;
-
-	if (latestTag) {
-		spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);
-	} else {
-		spinner.info('No Tag found.');
-	}
+	spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);
 
 	return latestTag;
 }
@@ -86,11 +85,14 @@ export function getNextTag(tag, pos) {
 			})
 			.join('.');
 	} else {
-		let newTag = parseInt(tag, 10);
+		let
+			splittedTag = tag.split('.'),
+			newTag = parseInt(splittedTag[1], 10)
+		;
 
 		++newTag;
 
-		return String(newTag).padStart(3, '0');
+		return `${splittedTag[0]}.${String(newTag).padStart(3, '0')}`;
 	}
 }
 
