@@ -10,6 +10,7 @@ module.exports = {
 		]
 	],
 	'plugins': [
-		'rewire'
+		'rewire',
+		'@babel/plugin-proposal-optional-chaining'
 	]
 };

@@ -45,7 +45,7 @@ export async function getLatestTag(currentBranch) {
 
 	let re;
 
-	if (currentBranch === 'master') {
+	if (['main', 'master'].includes(currentBranch)) {
 		re = new RegExp(/\d+\.\d+\.\d+/, 'g');
 	} else {
 		const
@@ -57,10 +57,14 @@ export async function getLatestTag(currentBranch) {
 	}
 
 	const
-		latestTag = tagData.match(re).pop()
+		latestTag = tagData.match(re)?.pop()
 	;
 
-	spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);
+	if (latestTag) {
+		spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);
+	} else {
+		spinner.info('No Tag found.');
+	}
 
 	return latestTag;
 }

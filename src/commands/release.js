@@ -37,7 +37,7 @@ export async function release() {
 		git = simpleGit(),
 		{ahead, current} = await git.status(),
 		tag = await getLatestTag(),
-		splittedTag = tag.split('.')
+		branch = current?.split('-')
 	;
 
 	let nextTag, msg;
@@ -47,17 +47,17 @@ export async function release() {
 		return process.exit();
 	}
 
-	if (current === 'master') {
+	if (['main', 'master'].includes(current)) {
 		const
 			{release} = await inquirer.prompt(QUESTIONS.release()),
 			pos = ['m', 'f', 'b'].indexOf(release[0].toLowerCase())
 		;
 
-		nextTag = getNextTag(tag, pos);
+		nextTag = getNextTag(tag || '0.0.0', pos);
 		msg = ['major', 'feature', 'build'][pos];
 	} else {
-		nextTag = getNextTag(tag);
-		msg = splittedTag[0] === 'develop' ? 'develop branch' : 'feature branch';
+		nextTag = getNextTag(tag || '000');
+		msg = branch[0] === 'develop' ? 'develop branch' : 'feature branch';
 	}
 
 	const {pushConfirm} = await inquirer.prompt(QUESTIONS.pushTag(nextTag));
