@@ -41,12 +41,12 @@ export function getDeployedTag(onSuccess, service = 'server') {
 	});
 }
 
-export async function getLatestTag(currentBranch) {
 /**
  * Return the latest tag from git repository
  *
  * @return {string} is the latest tag for the current branch
  */
+export async function getLatestTag() {
 	const
 		git = simpleGit(),
 		spinner = ora({text: 'Search for latest tag', color: 'cyan'}).start()
@@ -58,11 +58,10 @@ export async function getLatestTag(currentBranch) {
 
 	try {
 		const
-			{current} = await git.status()
+			{current: currentBranch} = await git.status()
 		;
 
 		tagData = await git.listRemote(['--tags'])
-		currentBranch = currentBranch || current;
 	} catch {
 		spinner.fail('An error occured, while fetching git status and remote tags. Please check your git repository');
 		return process.exit();
