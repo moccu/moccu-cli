@@ -53,14 +53,16 @@ export async function getLatestTag() {
 	;
 
 	let
+		currentBranch,
 		tagData
 	;
 
 	try {
 		const
-			{current: currentBranch} = await git.status()
+			{current} = await git.status()
 		;
 
+		currentBranch = current;
 		tagData = await git.listRemote(['--tags'])
 	} catch {
 		spinner.fail('An error occured, while fetching git status and remote tags. Please check your git repository');
@@ -74,7 +76,7 @@ export async function getLatestTag() {
 
 	if (['main', 'master'].includes(currentBranch)) {
 		re = new RegExp(/\d+\.\d+\.\d+/, 'g');
-		latestTag = orderBy((tagData || '0.0.0').match(re)).pop();
+		latestTag = orderBy((tagData || '0.0.0').match(re));
 	} else {
 		const
 			regex = new RegExp(/([\W_]+)/, 'g'),
@@ -82,8 +84,10 @@ export async function getLatestTag() {
 		;
 
 		re = new RegExp(`${cleanedBranchName}\\.\\d+`, 'g');
-		latestTag = orderBy((tagData || `${cleanedBranchName}.000`).match(re)).pop();
+		latestTag = orderBy((tagData || `${cleanedBranchName}.000`).match(re));
 	}
+
+	latestTag = latestTag[latestTag.length - 1];
 
 	spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);
 
@@ -140,7 +144,7 @@ export async function pushTag(tag, type) {
 		await git.addAnnotatedTag(tag, msg);
 	} catch {
 		spinner.fail('An error occured, while adding new tag. Please check your git repository');
-		return process.exit()
+		return process.exit();
 	}
 
 	spinner.succeed('New tag successfully added');
@@ -150,7 +154,7 @@ export async function pushTag(tag, type) {
 		await git.pushTags('origin');
 	} catch {
 		spinner.fail('An error occured, while pushing new tag to remote repository. Please check your git repository');
-		return process.exit()
+		return process.exit();
 	}
 
 	spinner.succeed('New tag successfully pushed');

@@ -13,6 +13,7 @@ module.exports = {
 		'./src/__setup__/chalk.js',
 		'./src/__setup__/config.js',
 		'./src/__setup__/dayjs.js',
+		'./src/__setup__/natural-orderby.js',
 		'./src/__setup__/ora.js',
 		'./src/__setup__/shelljs.js',
 		'./src/__setup__/simple-git.js'
