@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import {snakeCase} from 'change-case';
+import {orderBy} from 'natural-orderby';
 import ora from 'ora';
 import path from 'path';
 import simpleGit from 'simple-git';
@@ -62,8 +63,7 @@ export async function getLatestTag(currentBranch) {
 
 	if (['main', 'master'].includes(currentBranch)) {
 		re = new RegExp(/\d+\.\d+\.\d+/, 'g');
-		latestTag = (tagData.match(re) || []).pop();
-		latestTag = latestTag || '0.0.0';
+		latestTag = orderBy((tagData || '0.0.0').match(re)).pop();
 	} else {
 		const
 			regex = new RegExp(/([\W_]+)/, 'g'),
@@ -71,8 +71,7 @@ export async function getLatestTag(currentBranch) {
 		;
 
 		re = new RegExp(`${cleanedBranchName}\\.\\d+`, 'g');
-		latestTag = (tagData.match(re) || []).pop();
-		latestTag = latestTag || `${cleanedBranchName}.000`;
+		latestTag = orderBy((tagData || `${cleanedBranchName}.000`).match(re)).pop();
 	}
 
 	spinner.succeed(`Latest tag is: ${chalk.yellow(latestTag)}`);

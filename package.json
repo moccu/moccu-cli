@@ -25,6 +25,7 @@
     "esm": "^3.2.25",
     "inquirer": "^7.3.0",
     "js-yaml": "^3.14.0",
+    "natural-orderby": "^2.0.3",
     "ora": "^5.1.0",
     "shelljs": "^0.8.4",
     "simple-git": "^2.11.0",
