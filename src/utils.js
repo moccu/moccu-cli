@@ -63,7 +63,7 @@ export async function getLatestTag() {
 		;
 
 		currentBranch = current;
-		tagData = await git.listRemote(['--tags'])
+		tagData = await git.listRemote(['--tags']);
 	} catch {
 		spinner.fail('An error occured, while fetching git status and remote tags. Please check your git repository');
 		return process.exit();
@@ -119,8 +119,11 @@ export function getNextTag(tag, pos) {
 			})
 			.join('.');
 	} else {
+		const
+			splittedTag = tag.split('.')
+		;
+
 		let
-			splittedTag = tag.split('.'),
 			newTag = parseInt(splittedTag[1], 10)
 		;
 

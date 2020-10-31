@@ -17,7 +17,8 @@
 	"rules": {
 		"no-control-regex": "off",
 		"no-process-exit": "off",
-		"one-var": ["error", "consecutive"]
+		"one-var": ["error", "consecutive"],
+		"prefer-promise-reject-errors": "off"
 	},
 	"parser": "babel-eslint"
 }
