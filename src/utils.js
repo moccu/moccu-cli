@@ -36,12 +36,24 @@ export function getDeployedTag(onSuccess, service = 'server') {
 export async function getLatestTag(currentBranch) {
 	const
 		git = simpleGit(),
-		spinner = ora({text: 'Search for latest tag', color: 'cyan'}).start(),
-		{current} = await git.status(),
-		tagData = await git.listRemote(['--tags'])
+		spinner = ora({text: 'Search for latest tag', color: 'cyan'}).start()
 	;
 
-	currentBranch = currentBranch || current;
+	let
+		tagData
+	;
+
+	try {
+		const
+			{current} = await git.status()
+		;
+
+		tagData = await git.listRemote(['--tags'])
+		currentBranch = currentBranch || current;
+	} catch {
+		spinner.fail('An error occured, while fetching git status and remote tags. Please check your git repository');
+		return process.exit();
+	}
 
 	let
 		latestTag,
@@ -106,10 +118,23 @@ export async function pushTag(tag, type) {
 		spinner = ora({text: 'Add new tag', color: 'cyan'}).start()
 	;
 
-	await git.addAnnotatedTag(tag, msg);
+	try {
+		await git.addAnnotatedTag(tag, msg);
+	} catch {
+		spinner.fail('An error occured, while adding new tag. Please check your git repository');
+		return process.exit()
+	}
+
 	spinner.succeed('New tag successfully added');
 	spinner = ora({text: 'Push new tag to remote', color: 'cyan'}).start();
-	await git.pushTags('origin');
+
+	try {
+		await git.pushTags('origin');
+	} catch {
+		spinner.fail('An error occured, while pushing new tag to remote repository. Please check your git repository');
+		return process.exit()
+	}
+
 	spinner.succeed('New tag successfully pushed');
 }
 
