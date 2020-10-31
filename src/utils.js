@@ -7,6 +7,13 @@ import simpleGit from 'simple-git';
 import shelljs from 'shelljs';
 
 
+/**
+ * Get current deployed tag on the server
+ *
+ * @param {function} onSuccess Callback for succeded fetch
+ * @param {string} service The name of the service
+ *
+ */
 export function getDeployedTag(onSuccess, service = 'server') {
 	const
 		{host} = global.config,
@@ -35,6 +42,11 @@ export function getDeployedTag(onSuccess, service = 'server') {
 }
 
 export async function getLatestTag(currentBranch) {
+/**
+ * Return the latest tag from git repository
+ *
+ * @return {string} is the latest tag for the current branch
+ */
 	const
 		git = simpleGit(),
 		spinner = ora({text: 'Search for latest tag', color: 'cyan'}).start()
@@ -79,6 +91,14 @@ export async function getLatestTag(currentBranch) {
 	return latestTag;
 }
 
+/**
+ * Create the next tag from given tag
+ *
+ * @param {string} tag The value that is used as the basis for the next tag
+ * @param {integer} pos The position in value to be incremented
+ *
+ * @return {string} is the incremented tag value
+ */
 export function getNextTag(tag, pos) {
 	if ((/\d+\.\d+\.\d+/).test(tag)) {
 		return tag
