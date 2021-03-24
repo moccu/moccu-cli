@@ -84,10 +84,13 @@ describe('The utils', () => {
 			const
 				version = '1.2.3',
 				execMock = jest.spyOn(shelljs, 'exec').mockImplementation((command, options, callback) => callback(0, `imagename:${version}`)),
-				mockFn = jest.fn()
+				mockFn = jest.fn(),
+				serviceOriginal = global.config.service
 			;
 
-			getDeployedTag(mockFn, 'postgres');
+			global.config.service = 'postgres';
+
+			getDeployedTag(mockFn);
 
 			expect(mockFn).toHaveBeenCalledTimes(1);
 			expect(mockFn).toHaveBeenCalledWith(version);
@@ -97,6 +100,7 @@ describe('The utils', () => {
 				expect.any(Function)
 			);
 
+			global.config.service = serviceOriginal;
 			execMock.mockRestore();
 		});
 

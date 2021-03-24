@@ -17,6 +17,7 @@ You should then set up a configuration file:
 		"common": {
 			"client": "clientname",
 			"project": "projectname",
+			"service": "server",
 			"compose": {
 				"nodeCommand": "\"node server.js\""
 			}

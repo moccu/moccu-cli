@@ -14,13 +14,13 @@ import shelljs from 'shelljs';
  * @param {string} service The name of the service
  *
  */
-export function getDeployedTag(onSuccess, service = 'server') {
+export function getDeployedTag(onSuccess) {
 	const
-		{host} = global.config,
+		{host, service} = global.config,
 		dockerProjectName = getDockerProjectName(),
 		labels = [
 			`com.docker.compose.project=${dockerProjectName}`,
-			`com.docker.compose.service=${service}`
+			`com.docker.compose.service=${service || 'server'}`
 		],
 		filters = labels.map((label) => `--filter "label=${label}"`).join(' '),
 		spinner = ora({text: 'Search for deployed tag', color: 'cyan'}).start()

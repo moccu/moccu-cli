@@ -4,6 +4,7 @@ export const configuration = jest.fn(() => {
 			common: {
 				client: 'client',
 				project: 'project',
+				service: 'server',
 				compose: {
 					nodeCommand: 'nodeCommand'
 				}
