@@ -44,10 +44,10 @@ function selectDump(dockerProjectName, onSuccess) {
 
 export function migrate() {
 	const
-		{host} = global.config
+		{host, service} = global.config
 	;
 
-	getContainerId('server', (containerId) => {
+	getContainerId(service, (containerId) => {
 		const
 			spinner = ora({text: 'Migrate database', color: 'cyan'}).start()
 		;

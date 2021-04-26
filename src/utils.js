@@ -20,7 +20,7 @@ export function getDeployedTag(onSuccess) {
 		dockerProjectName = getDockerProjectName(),
 		labels = [
 			`com.docker.compose.project=${dockerProjectName}`,
-			`com.docker.compose.service=${service || 'server'}`
+			`com.docker.compose.service=${service}`
 		],
 		filters = labels.map((label) => `--filter "label=${label}"`).join(' '),
 		spinner = ora({text: 'Search for deployed tag', color: 'cyan'}).start()

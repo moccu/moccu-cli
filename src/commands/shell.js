@@ -5,10 +5,10 @@ import {getContainerId} from '../utils';
 
 export function runShell() {
 	const
-		{host} = global.config
+		{host, service} = global.config
 	;
 
-	getContainerId('server', (containerId) => {
+	getContainerId(service, (containerId) => {
 		console.log(`Server:\t\t${chalk.yellow(`DOCKER_HOST=ssh://${host} docker exec -it ${containerId} ash`)}`);
 	});
 
