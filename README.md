@@ -8,7 +8,7 @@ CLI to run commands for docker
 
 You can install the moccu-cli using npm:
 ```
-$ npm install -g moccu-cli
+$ npm install -g @moccu/moccu-cli
 ```
 You should then set up a configuration file:
 ```
